@@ -374,9 +374,9 @@ export default {
     startPickerOptions() {
       return {
         disabledDate: (time) => {
-          if (this.endDate) {
-            const endDate = formatDateStringToISODate(this.endDate);
-            return time.getTime() > endDate.getTime();
+          if (this.dieDate) {
+            const dieDate = formatDateStringToISODate(this.dieDate);
+            return time.getTime() > dieDate.getTime();
           }
         },
       };
@@ -384,9 +384,9 @@ export default {
     endPickerOptions() {
       return {
         disabledDate: (time) => {
-          if (this.startDate) {
-            const startDate = formatDateStringToISODate(this.startDate);
-            return time.getTime() < startDate.getTime();
+          if (this.birthDate) {
+            const birthDate = formatDateStringToISODate(this.birthDate);
+            return time.getTime() < birthDate.getTime();
           }
         },
       };
@@ -484,7 +484,7 @@ export default {
       this.$emit("change", newValue);
     },
     validateGender() {
-      this.genderError = this.gender.trim().length === 0;
+      this.genderError = !this.gender || this.gender == null || this.gender.trim().length === 0;
       return !this.genderError;
     },
   },
