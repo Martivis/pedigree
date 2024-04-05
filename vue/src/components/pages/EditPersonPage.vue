@@ -30,7 +30,7 @@ export default {
     PersonForm,
     SimpleButton
   },
-  data() {
+  data () {
     return {
       form: emptyPerson(),
       isFormValid: false
@@ -48,7 +48,7 @@ export default {
   },
   mounted () {
     if (this.getMode === 'user') {
-      this.$router.push({ name: 'HOME' })
+      this.$router.push({ name: this.$routes.HOME })
     } else {
       if (this.person) {
         this.form = {
@@ -61,14 +61,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions('persons', ['editPerson']),
+    ...mapActions('persons', [
+      'editPerson'
+    ]),
     editPersonHandler () {
       const isGenderValid = this.$refs.personForm.validateGender()
 
       if (!isGenderValid) {
         return
       }
-
+      
       this.editPerson(this.form)
       this.$router.push({ name: "PERSON"});
     },

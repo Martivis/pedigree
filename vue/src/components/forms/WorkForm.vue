@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { parseDateString } from '@/services/datePickerOptions'
 import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {

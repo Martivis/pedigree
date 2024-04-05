@@ -55,8 +55,9 @@
 </template>
 
 <script>
-import PopOver from '../ui/PopOver.vue'
-import InputHelper from '../ui/InputHelper.vue'
+import PopOver from '@/components/ui/PopOver.vue'
+import InputHelper from '@/components/ui/InputHelper.vue'
+import { parseDateString } from '@/services/datePickerOptions'
 import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {
@@ -73,7 +74,7 @@ export default {
     value: {
       type: Object,
       required: true
-    },
+    }
   },
   computed: {
     type: {
@@ -112,7 +113,7 @@ export default {
       get () {
         return this.value.name
       },
-      set(value) {
+      set (value) {
         this.emitChange({ name: value })
       }
     },

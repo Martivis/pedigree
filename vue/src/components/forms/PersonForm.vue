@@ -318,6 +318,7 @@ import { mapGetters } from 'vuex'
 import EducationForm from '@/components/forms/EducationForm.vue'
 import WorkForm from '@/components/forms/WorkForm.vue'
 import { emptyWedding, emptyWork, emptyMilitary, emptyEducation } from '@/services/person'
+import { parseDateString } from '@/services/datePickerOptions'
 import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {

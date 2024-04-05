@@ -32,11 +32,11 @@ export default {
   components: {
     PageLayout,
     PersonForm,
-    SimpleButton,
+    SimpleButton
   },
-  data() {
+  data () {
     return {
-      form: emptyPerson(),
+      form: emptyPerson()
     }
   },
   computed: {
@@ -73,10 +73,10 @@ export default {
         this.$router.push({ name: "PERSON", params: { id: person.id } })
       })
     },
-    cancel() {
+    cancel () {
       this.goBack()
     },
-    goBack() {
+    goBack () {
       this.$router.go(-1)
     }
   },
@@ -87,7 +87,7 @@ export default {
   }, 
   mounted () {
     if (this.getMode === 'user') {
-      this.$router.push({ name: 'HOME' })
+      this.$router.push({ name: this.$routes.HOME })
     }
   },
 }

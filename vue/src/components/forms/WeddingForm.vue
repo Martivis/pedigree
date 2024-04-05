@@ -36,6 +36,7 @@
 
 <script>
 import { formatPersonName } from '@/services/formatPersonName'
+import { parseDateString } from '@/services/datePickerOptions'
 import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {
@@ -105,7 +106,7 @@ export default {
     emitFormData (param) {
       this.$emit('change', {
         ...this.value,
-        ...param,
+        ...param
       })
     },
     fullName (partner) {
