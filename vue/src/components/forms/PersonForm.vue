@@ -211,24 +211,24 @@
 </template>
 
 <script>
-import MilitaryForm from "../forms/MilitaryForm.vue";
-import SimpleButton from "../ui/SimpleButton.vue";
-import WeddingForm from "../forms/WeddingForm.vue";
-import ChildForm from "../forms/ChildForm.vue";
-import { mapGetters } from "vuex";
-import EducationForm from "../forms/EducationForm.vue";
-import WorkForm from "../forms/WorkForm.vue";
-import { emptyWedding } from "@/services/person";
-import { emptyMilitary } from "@/services/person";
-import { emptyEducation } from "@/services/person";
-import { emptyWork } from "@/services/person";
-import { formatDateStringToISODate } from "@/services/formatDateStringToISODate";
+import MilitaryForm from '../forms/MilitaryForm.vue'
+import SimpleButton from '../ui/SimpleButton.vue'
+import WeddingForm from '../forms/WeddingForm.vue'
+import ChildForm from '../forms/ChildForm.vue'
+import { mapGetters } from 'vuex'
+import EducationForm from '../forms/EducationForm.vue'
+import WorkForm from '../forms/WorkForm.vue'
+import { emptyWedding } from '@/services/person'
+import { emptyMilitary } from '@/services/person'
+import { emptyEducation } from '@/services/person'
+import { emptyWork } from '@/services/person'
+import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {
-  name: "PersonForm",
+  name: 'PersonForm',
   model: {
-    prop: "value",
-    event: "change",
+    prop: 'value',
+    event: 'change'
   },
   components: {
     WorkForm,
@@ -236,259 +236,259 @@ export default {
     WeddingForm,
     ChildForm,
     MilitaryForm,
-    SimpleButton,
+    SimpleButton
   },
   data() {
     return {
-      genderError: false,
-    };
+      genderError: false
+    }
   },
   props: {
     value: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     secondName: {
-      get() {
-        return this.value.secondName;
+      get () {
+        return this.value.secondName
       },
-      set(value) {
-        this.emitFormData({ secondName: value });
-      },
+      set (value) {
+        this.emitFormData({ secondName: value })
+      }
     },
     firstName: {
-      get() {
-        return this.value.firstName;
+      get () {
+        return this.value.firstName
       },
-      set(value) {
-        this.emitFormData({ firstName: value });
-      },
+      set (value) {
+        this.emitFormData({ firstName: value })
+      }
     },
     patronymicName: {
-      get() {
-        return this.value.patronymicName;
+      get () {
+        return this.value.patronymicName
       },
-      set(value) {
-        this.emitFormData({ patronymicName: value });
-      },
+      set (value) {
+        this.emitFormData({ patronymicName: value })
+      }
     },
     gender: {
-      get() {
-        return this.value.gender;
+      get () {
+        return this.value.gender
       },
-      set(value) {
-        this.emitFormData({ gender: value });
-      },
+      set (value) {
+        this.emitFormData({ gender: value })
+      }
     },
     birthDate: {
-      get() {
-        return this.value.birthDate;
+      get () {
+        return this.value.birthDate
       },
-      set(value) {
-        this.emitFormData({ birthDate: value });
-      },
+      set (value) {
+        this.emitFormData({ birthDate: value })
+      }
     },
     dieDate: {
-      get() {
-        return this.value.dieDate;
+      get () {
+        return this.value.dieDate
       },
-      set(value) {
-        this.emitFormData({ dieDate: value });
-      },
+      set (value) {
+        this.emitFormData({ dieDate: value })
+      }
     },
     activity: {
-      get() {
-        return this.value.activity;
+      get () {
+        return this.value.activity
       },
-      set(value) {
-        this.emitFormData({ activity: value });
-      },
+      set (value) {
+        this.emitFormData({ activity: value })
+      }
     },
     biography: {
-      get() {
-        return this.value.biography;
+      get () {
+        return this.value.biography
       },
-      set(value) {
-        this.emitFormData({ biography: value });
-      },
+      set (value) {
+        this.emitFormData({ biography: value })
+      }
     },
     access: {
-      get() {
+      get () {
         if (this.value.access) {
-          return "true";
+          return 'true'
         } else {
-          return "false";
+          return 'false'
         }
       },
-      set(value) {
-        if (value == "true") {
-          value = true;
+      set (value) {
+        if (value == 'true') {
+          value = true
         } else {
-          value = false;
+          value = false
         }
         this.emitFormData({
           access: value,
-        });
+        })
       },
     },
 
-    ...mapGetters("persons", [
-      "filteredPersons",
-      "getAllPersons",
-      "getPersonById",
-      "getCenter",
+    ...mapGetters('persons', [
+      'filteredPersons',
+      'getAllPersons',
+      'getPersonById',
+      'getCenter',
     ]),
-    id() {
-      return this.$route.params.id;
+    id () {
+      return this.$route.params.id
     },
-    person() {
-      return this.getPersonById(this.id);
+    person () {
+      return this.getPersonById(this.id)
     },
-    partners() {
+    partners () {
       const customFilter = (person) => {
-        const partnerGender = this.person.gender === "male" ? "female" : "male";
-        const birthDate = new Date(this.person.birthDate);
-        const deathDate = new Date(this.person.dieDate);
+        const partnerGender = this.person.gender === 'male' ? 'female' : 'male'
+        const birthDate = new Date(this.person.birthDate)
+        const deathDate = new Date(this.person.dieDate)
         return (
           person.gender !== partnerGender &&
           (!person.dieDate || new Date(person.dieDate) > birthDate) &&
           (!person.birthDate || new Date(person.birthDate) < deathDate)
-        );
-      };
-      return this.filteredPersons(customFilter) || [];
+        )
+      }
+      return this.filteredPersons(customFilter) || []
     },
-    children() {
+    children () {
       const customFilter = (person) => {
-        const birthDate = new Date(this.person.birthDate);
-        const deathDate = new Date(this.person.dieDate);
+        const birthDate = new Date(this.person.birthDate)
+        const deathDate = new Date(this.person.dieDate)
         return (
           person.birthDate > this.person.birthDate &&
           (!person.dieDate || new Date(person.dieDate) > birthDate) &&
           (!person.birthDate || new Date(person.birthDate) < deathDate)
-        );
-      };
-      return this.filteredPersons(customFilter) || [];
+        )
+      }
+      return this.filteredPersons(customFilter) || []
     },
-    startPickerOptions() {
+    startPickerOptions () {
       return {
         disabledDate: (time) => {
           if (this.dieDate) {
-            const dieDate = formatDateStringToISODate(this.dieDate);
-            return time.getTime() > dieDate.getTime();
+            const dieDate = formatDateStringToISODate(this.dieDate)
+            return time.getTime() > dieDate.getTime()
           }
-        },
-      };
+        }
+      }
     },
-    endPickerOptions() {
+    endPickerOptions () {
       return {
         disabledDate: (time) => {
           if (this.birthDate) {
-            const birthDate = formatDateStringToISODate(this.birthDate);
-            return time.getTime() < birthDate.getTime();
+            const birthDate = formatDateStringToISODate(this.birthDate)
+            return time.getTime() < birthDate.getTime()
           }
-        },
-      };
-    },
+        }
+      }
+    }
   },
   methods: {
-    emitFormData(param) {
-      this.$emit("change", {
+    emitFormData (param) {
+      this.$emit('change', {
         ...this.value,
-        ...param,
-      });
+        ...param
+      })
     },
-    setMilitaryForm(updatedMilitary, index) {
-      const newValue = { ...this.value };
-      newValue.militaries[index] = updatedMilitary;
-      newValue.militaries = [...newValue.militaries];
-      this.$emit("change", newValue);
+    setMilitaryForm (updatedMilitary, index) {
+      const newValue = { ...this.value }
+      newValue.militaries[index] = updatedMilitary
+      newValue.militaries = [...newValue.militaries]
+      this.$emit('change', newValue)
     },
-    addMilitaryForm() {
-      const newValue = { ...this.value };
-      newValue.militaries.push(emptyMilitary);
-      this.$emit("change", newValue);
+    addMilitaryForm () {
+      const newValue = { ...this.value }
+      newValue.militaries.push(emptyMilitary)
+      this.$emit('change', newValue)
     },
-    removeMilitaryForm(index) {
-      const newValue = { ...this.value };
-      newValue.militaries.splice(index, 1);
-      this.$emit("change", newValue);
+    removeMilitaryForm (index) {
+      const newValue = { ...this.value }
+      newValue.militaries.splice(index, 1)
+      this.$emit('change', newValue)
     },
-    setWeddingForm(updatedWedding, index) {
-      const newValue = { ...this.value };
-      newValue.weddings = [...newValue.weddings];
-      newValue.weddings[index] = updatedWedding;
-      this.$emit("change", newValue);
+    setWeddingForm (updatedWedding, index) {
+      const newValue = { ...this.value }
+      newValue.weddings = [...newValue.weddings]
+      newValue.weddings[index] = updatedWedding
+      this.$emit('change', newValue)
     },
-    addWeddingForm() {
-      const newValue = { ...this.value };
-      newValue.weddings.push(emptyWedding);
-      this.$emit("change", newValue);
+    addWeddingForm () {
+      const newValue = { ...this.value }
+      newValue.weddings.push(emptyWedding)
+      this.$emit('change', newValue)
     },
-    removeWeddingForm(index) {
-      const newValue = { ...this.value };
-      newValue.weddings.splice(index, 1);
-      this.$emit("change", newValue);
+    removeWeddingForm (index) {
+      const newValue = { ...this.value }
+      newValue.weddings.splice(index, 1)
+      this.$emit('change', newValue)
     },
-    setChildForm(updatedChild, index) {
-      const newValue = { ...this.value };
-      newValue.children = [...newValue.children];
-      newValue.children[index] = updatedChild;
-      this.$emit("change", newValue);
+    setChildForm (updatedChild, index) {
+      const newValue = { ...this.value }
+      newValue.children = [...newValue.children]
+      newValue.children[index] = updatedChild
+      this.$emit('change', newValue)
     },
-    addChildForm() {
-      const newValue = { ...this.value };
+    addChildForm () {
+      const newValue = { ...this.value }
       newValue.children.push({
-        child: "",
-      });
-      this.$emit("change", newValue);
+        child: '',
+      })
+      this.$emit('change', newValue)
     },
-    removeChildForm(index) {
-      const newValue = { ...this.value };
-      newValue.children.splice(index, 1);
-      this.$emit("change", newValue);
-    },
-
-    setEducationForm(updatedEducation, index) {
-      const newValue = { ...this.value };
-      newValue.educations = [...newValue.educations];
-      newValue.educations[index] = updatedEducation;
-      this.$emit("change", newValue);
-    },
-    addEducationForm() {
-      const newValue = { ...this.value };
-      newValue.educations.push(emptyEducation);
-      this.$emit("change", newValue);
-    },
-    removeEducationForm(index) {
-      const newValue = { ...this.value };
-      newValue.educations.splice(index, 1);
-      this.$emit("change", newValue);
+    removeChildForm (index) {
+      const newValue = { ...this.value }
+      newValue.children.splice(index, 1)
+      this.$emit('change', newValue)
     },
 
-    setWorkForm(updatedWork, index) {
-      const newValue = { ...this.value };
-      newValue.works = [...newValue.works];
-      newValue.works[index] = updatedWork;
-      this.$emit("change", newValue);
+    setEducationForm (updatedEducation, index) {
+      const newValue = { ...this.value }
+      newValue.educations = [...newValue.educations]
+      newValue.educations[index] = updatedEducation
+      this.$emit('change', newValue)
     },
-    addWorkForm() {
-      const newValue = { ...this.value };
-      newValue.works.push(emptyWork);
-      this.$emit("change", newValue);
+    addEducationForm () {
+      const newValue = { ...this.value }
+      newValue.educations.push(emptyEducation)
+      this.$emit('change', newValue)
     },
-    removeWorkForm(index) {
-      const newValue = { ...this.value };
-      newValue.works.splice(index, 1);
-      this.$emit("change", newValue);
+    removeEducationForm (index) {
+      const newValue = { ...this.value }
+      newValue.educations.splice(index, 1)
+      this.$emit('change', newValue)
     },
-    validateGender() {
-      this.genderError = !this.gender || this.gender == null || this.gender.trim().length === 0;
-      return !this.genderError;
+
+    setWorkForm (updatedWork, index) {
+      const newValue = { ...this.value }
+      newValue.works = [...newValue.works]
+      newValue.works[index] = updatedWork
+      this.$emit('change', newValue)
     },
-  },
-};
+    addWorkForm () {
+      const newValue = { ...this.value }
+      newValue.works.push(emptyWork)
+      this.$emit('change', newValue)
+    },
+    removeWorkForm (index) {
+      const newValue = { ...this.value }
+      newValue.works.splice(index, 1)
+      this.$emit('change', newValue)
+    },
+    validateGender () {
+      this.genderError = !this.gender || this.gender == null || this.gender.trim().length === 0
+      return !this.genderError
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">

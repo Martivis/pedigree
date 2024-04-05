@@ -50,99 +50,99 @@
 </template>
 
 <script>
-import { formatDateStringToISODate } from "@/services/formatDateStringToISODate";
+import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {
-  name: "WorkForm",
+  name: 'WorkForm',
   model: {
-    prop: "value",
-    event: "change",
+    prop: 'value',
+    event: 'change'
   },
   props: {
     value: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     place: {
-      get() {
-        return this.value.place;
+      get () {
+        return this.value.place
       },
-      set(value) {
-        this.emitChange({ place: value });
-      },
+      set (value) {
+        this.emitChange({ place: value })
+      }
     },
     organization: {
-      get() {
-        return this.value.organization;
+      get () {
+        return this.value.organization
       },
-      set(value) {
-        this.emitChange({ organization: value });
-      },
+      set (value) {
+        this.emitChange({ organization: value })
+      }
     },
     startDate: {
-      get() {
-        return this.value.startDate;
+      get () {
+        return this.value.startDate
       },
-      set(value) {
-        this.emitChange({ startDate: value });
-      },
+      set (value) {
+        this.emitChange({ startDate: value })
+      }
     },
     endDate: {
-      get() {
-        return this.value.endDate;
+      get () {
+        return this.value.endDate
       },
-      set(value) {
-        this.emitChange({ endDate: value });
-      },
+      set (value) {
+        this.emitChange({ endDate: value })
+      }
     },
     position: {
-      get() {
-        return this.value.position;
+      get () {
+        return this.value.position
       },
-      set(value) {
-        this.emitChange({ position: value });
-      },
+      set (value) {
+        this.emitChange({ position: value })
+      }
     },
     description: {
-      get() {
-        return this.value.description;
+      get () {
+        return this.value.description
       },
-      set(value) {
-        this.emitChange({ description: value });
-      },
+      set (value) {
+        this.emitChange({ description: value })
+      }
     },
-    startPickerOptions() {
+    startPickerOptions () {
       return {
         disabledDate: (time) => {
           if (this.endDate) {
-            const endDate = formatDateStringToISODate(this.endDate);
-            return time.getTime() > endDate.getTime();
+            const endDate = formatDateStringToISODate(this.endDate)
+            return time.getTime() > endDate.getTime()
           }
-        },
-      };
+        }
+      }
     },
-    endPickerOptions() {
+    endPickerOptions () {
       return {
         disabledDate: (time) => {
           if (this.startDate) {
-            const startDate = formatDateStringToISODate(this.startDate);
-            return time.getTime() < startDate.getTime();
+            const startDate = formatDateStringToISODate(this.startDate)
+            return time.getTime() < startDate.getTime()
           }
-        },
-      };
-    },
+        }
+      }
+    }
   },
   methods: {
-    emitChange(param) {
-      this.$emit("change", {
+    emitChange (param) {
+      this.$emit('change', {
         ...this.value,
-        ...param,
-      });
-    },
-  },
-};
+        ...param
+      })
+    }
+  }
+}
 </script>
 
 <style></style>

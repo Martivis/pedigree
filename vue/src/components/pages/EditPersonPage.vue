@@ -13,69 +13,69 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import PageLayout from "../parts/PageLayout.vue";
-import PersonForm from "../forms/PersonForm.vue";
-import { emptyPerson } from "@/services/person";
-import SimpleButton from "../ui/SimpleButton.vue";
+import { mapGetters, mapActions } from 'vuex'
+import PageLayout from '../parts/PageLayout.vue'
+import PersonForm from '../forms/PersonForm.vue'
+import { emptyPerson } from '@/services/person'
+import SimpleButton from '../ui/SimpleButton.vue'
 
 export default {
-  name: "EditPersonPage",
+  name: 'EditPersonPage',
   components: {
     PageLayout,
     PersonForm,
-    SimpleButton,
+    SimpleButton
   },
   data() {
     return {
       form: emptyPerson(),
-      isFormValid: false,
-    };
+      isFormValid: false
+    }
   },
   computed: {
-    ...mapGetters("persons", ["getPersonById"]),
-    ...mapGetters("settings", ["getMode"]),
-    id() {
-      return this.$route.params.id;
+    ...mapGetters('persons', ['getPersonById']),
+    ...mapGetters('settings', ['getMode']),
+    id () {
+      return this.$route.params.id
     },
-    person() {
-      return this.getPersonById(this.id);
-    },
+    person () {
+      return this.getPersonById(this.id)
+    }
   },
-  mounted() {
-    if (this.getMode === "user") {
-      this.$router.push({ name: "HOME" });
+  mounted () {
+    if (this.getMode === 'user') {
+      this.$router.push({ name: 'HOME' })
     } else {
       if (this.person) {
         this.form = {
           ...this.form,
-          ...this.person,
-        };
+          ...this.person
+        }
       } else {
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: '/' })
       }
     }
   },
   methods: {
-    ...mapActions("persons", ["editPerson"]),
-    editPersonHandler() {
-      const isGenderValid = this.$refs.personForm.validateGender();
+    ...mapActions('persons', ['editPerson']),
+    editPersonHandler () {
+      const isGenderValid = this.$refs.personForm.validateGender()
 
       if (!isGenderValid) {
-        return;
+        return
       }
 
-      this.editPerson(this.form);
-      this.goBack();
+      this.editPerson(this.form)
+      this.goBack()
     },
-    cancel() {
-      this.goBack();
+    cancel () {
+      this.goBack()
     },
-    goBack() {
-      this.$router.go(-1);
-    },
-  },
-};
+    goBack () {
+      this.$router.go(-1)
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">

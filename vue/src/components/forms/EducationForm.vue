@@ -9,7 +9,10 @@
       />
 
       <template slot="popover">
-        <InputHelper :options="hints" @select="(hint) => selectHint(hint)" />
+        <InputHelper
+          :options="hints"
+          @select="(hint) => selectHint(hint)"
+        />
       </template>
     </PopOver>
     <ElInput
@@ -52,113 +55,113 @@
 </template>
 
 <script>
-import PopOver from "../ui/PopOver.vue";
-import InputHelper from "../ui/InputHelper.vue";
-import { formatDateStringToISODate } from "@/services/formatDateStringToISODate";
+import PopOver from '../ui/PopOver.vue'
+import InputHelper from '../ui/InputHelper.vue'
+import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {
-  name: "EducationForm",
+  name: 'EducationForm',
   components: {
     PopOver,
-    InputHelper,
+    InputHelper
   },
   model: {
-    prop: "value",
-    event: "change",
+    prop: 'value',
+    event: 'change'
   },
   props: {
     value: {
       type: Object,
-      required: true,
+      required: true
     },
   },
   computed: {
     type: {
-      get() {
-        return this.value.type;
+      get () {
+        return this.value.type
       },
-      set(value) {
-        this.emitChange({ type: value });
-      },
+      set (value) {
+        this.emitChange({ type: value })
+      }
     },
     level: {
-      get() {
-        return this.value.level;
+      get () {
+        return this.value.level
       },
-      set(value) {
-        this.emitChange({ level: value });
-      },
+      set (value) {
+        this.emitChange({ level: value })
+      }
     },
     startDate: {
-      get() {
-        return this.value.startDate;
+      get () {
+        return this.value.startDate
       },
-      set(value) {
-        this.emitChange({ startDate: value });
-      },
+      set (value) {
+        this.emitChange({ startDate: value })
+      }
     },
     endDate: {
-      get() {
-        return this.value.endDate;
+      get () {
+        return this.value.endDate
       },
-      set(value) {
-        this.emitChange({ endDate: value });
-      },
+      set (value) {
+        this.emitChange({ endDate: value })
+      }
     },
     name: {
-      get() {
-        return this.value.name;
+      get () {
+        return this.value.name
       },
       set(value) {
-        this.emitChange({ name: value });
-      },
+        this.emitChange({ name: value })
+      }
     },
     city: {
-      get() {
-        return this.value.city;
+      get () {
+        return this.value.city
       },
-      set(value) {
-        this.emitChange({ city: value });
-      },
+      set (value) {
+        this.emitChange({ city: value })
+      }
     },
     hints: {
-      get() {
-        return ["Бакалавриат", "Магистратура", "Аспирантура"];
-      },
+      get () {
+        return ['Бакалавриат', 'Магистратура', 'Аспирантура']
+      }
     },
-    startPickerOptions() {
+    startPickerOptions () {
       return {
         disabledDate: (time) => {
           if (this.endDate) {
-            const endDate = formatDateStringToISODate(this.endDate);
-            return time.getTime() > endDate.getTime();
+            const endDate = formatDateStringToISODate(this.endDate)
+            return time.getTime() > endDate.getTime()
           }
-        },
-      };
+        }
+      }
     },
-    endPickerOptions() {
+    endPickerOptions () {
       return {
         disabledDate: (time) => {
           if (this.startDate) {
-            const startDate = formatDateStringToISODate(this.startDate);
-            return time.getTime() < startDate.getTime();
+            const startDate = formatDateStringToISODate(this.startDate)
+            return time.getTime() < startDate.getTime()
           }
-        },
-      };
-    },
+        }
+      }
+    }
   },
   methods: {
-    emitChange(param) {
-      this.$emit("change", {
+    emitChange (param) {
+      this.$emit('change', {
         ...this.value,
-        ...param,
-      });
+        ...param
+      })
     },
-    selectHint(hint) {
-      this.type = hint;
-    },
-  },
-};
+    selectHint (hint) {
+      this.type = hint
+    }
+  }
+}
 </script>
 
 <style></style>
