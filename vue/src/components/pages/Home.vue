@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import PageLayout from '../parts/PageLayout'
+import PageLayout from '@/components/parts/PageLayout'
 import { helpModal } from "@/mixins/modals"
 import { mapGetters } from 'vuex'
 
@@ -16,7 +16,7 @@ export default {
   name: 'HomePage',
   mixins: [helpModal],
   components: {
-    PageLayout,
+    PageLayout
   },
   computed: {
     ...mapGetters('persons', [
@@ -25,7 +25,7 @@ export default {
     ])
   },
   methods: {
-    redirectToDefaultPersonPage() {
+    redirectToDefaultPersonPage () {
       const first = this.getAllPersons[0] || {}
       const id = this.getCenter || first.id
       if (id) {
@@ -34,7 +34,7 @@ export default {
     }
   },
   mounted () {
-    this.redirectToDefaultPersonPage();
+    this.redirectToDefaultPersonPage()
   }
 }
 </script>

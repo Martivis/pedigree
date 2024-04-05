@@ -21,14 +21,14 @@
 </template>
 
 <script>
-import FeedbackForm from '../forms/FeedbackForm.vue'
-import PageLayout from '../parts/PageLayout.vue'
-import SimpleButton from '../ui/SimpleButton.vue'
+import FeedbackForm from '@/components/forms/FeedbackForm.vue'
+import PageLayout from '@/components/parts/PageLayout.vue'
+import SimpleButton from '@/components/ui/SimpleButton.vue'
 import axios from 'axios'
 
 export default {
   name: 'FeedbackPage',
-  data(){
+  data () {
     return {
       feed: { }
     }
@@ -45,14 +45,14 @@ export default {
     goBack () {
       this.$router.go(-1)
     },
-    sendMessage() {
+    sendMessage () {
       console.log(this.feed)
       axios.post('https://ourfeed', this.feed)
       .then(response => {
-        console.log('Результат ', response);
+        console.log('Результат ', response)
       })
       .catch(error => {
-        console.error('Ошибка ', error);
+        console.error('Ошибка ', error)
       })
     }
   }

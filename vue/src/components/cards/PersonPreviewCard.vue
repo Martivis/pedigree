@@ -1,6 +1,11 @@
 <template>
   <div class="person-preview-card">
-    <PhotoPreview v-if="photo" class="person-preview-card__photo" size="middle" :photo="photo" />
+    <PhotoPreview 
+      v-if="photo" 
+      class="person-preview-card__photo" 
+      size="middle" 
+      :photo="photo" 
+    />
     <div class="person-preview-card__information">
       <h2 class="person-preview-card__name">{{ secondName }}</h2>
       <h2 class="person-preview-card__name">{{ firstName }}</h2>
@@ -9,16 +14,18 @@
       <span class="person-preview-card__date">{{ birthDate }}</span>
       <span v-if="dieDate" class="person-preview-card__date"> - {{ dieDate }}</span>
 
-      <div class="person-preview-card__person-id">id: {{ person.id }}</div>
+      <div class="person-preview-card__person-id">
+        id: {{ person.id }}
+      </div>
     </div>
     <div class="person-preview-card__status-indicator" :class="genderClass"></div>
   </div>
 </template>
 
 <script>
-import PhotoPreview from '../ui/PhotoPreview.vue'
-import { mapGetters } from 'vuex';
-import { maskFio, maskDatetime, defaultImage} from '@/utils/mask';
+import PhotoPreview from '@/components/ui/PhotoPreview.vue'
+import { mapGetters } from 'vuex'
+import { maskFio, maskDatetime, defaultImage} from '@/utils/mask'
 
 export default {
   name: 'PersonPreviewCard',
@@ -32,56 +39,61 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('settings', ['getAccess']),
-    birthDate() {
-      if (!this.person.birthDate){
+    ...mapGetters('settings', [
+      'getAccess'
+    ]),
+    birthDate () {
+      if (!this.person.birthDate) {
         return null
       }
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.birthDate
       }
       return maskDatetime(this.person.birthDate)
     },
     dieDate () {
-      if (!this.person.dieDate){
+      if (!this.person.dieDate) {
         return null
       }
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.dieDate
       }
       return maskDatetime(this.person.dieDate)
     },
     firstName () {
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.firstName 
       }
       return maskFio(this.person.firstName)
     },
     genderClass () {
-      return `person-preview-card__status-indicator__${this.person.gender.toLowerCase()}`
+      if (this.person.gender) {
+        return `person-preview-card__status-indicator__${this.person.gender.toLowerCase()}`
+      }
+      return ''
     },
-    patronymicName (){
-      if (!this.needHide){
+    patronymicName () {
+      if (!this.needHide) {
         return this.person.patronymicName
       }
       return maskFio(this.person.patronymicName)
     },
-    photo(){
-      if (!this.needHide){
+    photo () {
+      if (!this.needHide) {
         return this.person.photo
       }
       return defaultImage
     },
-    needHide(){
+    needHide () {
       return this.person.access && this.getAccess
     },
     secondName () {
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.secondName 
       }
       return maskFio(this.person.secondName)
-    },
-  },
+    }
+  }
 }
 </script>
 

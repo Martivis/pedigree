@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { maskFio } from '@/utils/mask';
-import { formatPersonName } from '@/services/formatPersonName';
+import { mapGetters } from 'vuex'
+import { maskFio } from '@/utils/mask'
+import { formatPersonName } from '@/services/formatPersonName'
 
 export default {
   name: 'RelateButton',
@@ -32,30 +32,29 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('settings', ['getAccess']),
+    ...mapGetters('settings', [
+      'getAccess'
+    ]),
     formatName () {
-      if (!this.person) {
-        return ''
-      }
-      return formatPersonName(this.person, { short: true });
+      return formatPersonName(this.person, { short: true, access: this.needHide })
     },
     isMale () {
       return this.person.gender === 'male'
     },
-    needHide(){
+    needHide () {
       return this.person.access && this.getAccess
     },
-    secondNameFormatted(){
-      if (!this.person){
+    secondNameFormatted () {
+      if (!this.person) {
         return ''
       }
-      if (this.needHide){
+      if (this.needHide) {
         return maskFio(this.person.secondName)
       }
       return this.person.secondName
     }
   }
-};
+}
 </script>
 
 <style scoped lang="less">

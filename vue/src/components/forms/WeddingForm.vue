@@ -9,7 +9,7 @@
       <ElOption
         v-for="person in persons"
         :key="person.id"
-        :label="person.name"
+        :label="fullName(person)"
         :value="person.id"
       />
     </ElSelect>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { formatPersonName } from '@/services/formatPersonName'
 import { formatDateStringToISODate } from '@/services/formatDateStringToISODate'
 
 export default {
@@ -100,13 +101,20 @@ export default {
     }
   },
   methods: {
+    parseDateString,
     emitFormData (param) {
       this.$emit('change', {
         ...this.value,
         ...param,
       })
     },
-  },
+    fullName (partner) {
+      if (partner) {
+        return formatPersonName(partner, { short: false, access: this.needHide })
+      }
+      return ''
+    }
+  }
 }
 </script>
 
