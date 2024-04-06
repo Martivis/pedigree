@@ -65,14 +65,14 @@ export default {
       'editPerson'
     ]),
     editPersonHandler () {
-      const isEmptyH = this.$refs.personForm.checkEmptyForms();
+      const isEmptyH = this.$refs.personForm.checkEmptyForms()
       const isGenderValid = this.$refs.personForm.validateGender()
       if (!isGenderValid || isEmptyH) {
         return
       }
     
       this.editPerson(this.form)
-      this.$router.push({ name: "PERSON"});
+      this.$router.push({ name: "PERSON"})
     },
     cancel () {
       this.goBack()
