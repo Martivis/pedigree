@@ -90,7 +90,7 @@ export default {
     if (this.getMode === 'user') {
       this.$router.push({ name: this.$routes.HOME })
     }
-  },
+  }
 }
 </script>
 
