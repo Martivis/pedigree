@@ -60,7 +60,8 @@ export default {
     ]),
     createPerson() {
       const isGenderValid = this.$refs.personForm.validateGender()
-      if (!isGenderValid) {
+      const isEmpty = this.$refs.personForm.checkEmptyForms();
+      if (!isGenderValid || isEmpty) {
         return
       }
       const parentId = this.parentId
